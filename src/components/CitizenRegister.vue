@@ -133,7 +133,7 @@
                 </v-col>
                 <v-col cols="12">
                     <div>
-                        <v-btn outlined dark @click="getLocation()" color="#47BCC2" class="ml-0">
+                        <v-btn outlined dark @click="location2()" color="#47BCC2" class="ml-0">
                             Registrar
                             <v-icon class="ml-3" color="#47BCC2">mdi-map-marker-plus-outline</v-icon>
                         </v-btn>
@@ -253,6 +253,7 @@ export default {
     mounted() { 
         // this.buttonAction = true
         this.startTime()
+        this.location2()
 
     },
     methods: {
