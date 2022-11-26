@@ -244,8 +244,27 @@ export default {
     mounted() { 
         // this.buttonAction = true
         this.startTime()
+
     },
     methods: {
+        location2() {
+            navigator.geolocation.getCurrentPosition(position => {
+                const { latitude, longitude } = position.coords;
+                // Show a map centered at latitude / longitude.
+                this.center.lat = latitude
+                this.center.lng = longitude
+                this.buttonAction = true
+
+                const marker = {
+                    lat: this.center.lat,
+                    lng: this.center.lng
+                };
+                this.locationMarkers.push({ position: marker });
+                this.locPlaces.push(this.existingPlace);
+                this.center = marker;
+                this.existingPlace = null;
+            })
+        },
         initMarker(loc) {
             this.existingPlace = loc;
         },
