@@ -6,6 +6,11 @@
                     <div class="color-custom-default">Registro rápido</div>
                 </v-col>
             </v-row>
+            <v-row>
+                <v-col cols="12" class="d-flex text-h4 justify-start">
+                    {{ center }}
+                </v-col>
+            </v-row>
             <!-- <v-row>
                 <v-col cols="12" class="text-h5 color-custom-default">
                     Fecha <v-icon class="pb-1" color="#47BCC2">mdi-calendar</v-icon>
@@ -229,9 +234,13 @@ export default {
             menu2: false,
             latitude: '',
             longitude: '',
+            // center: { 
+            //     lat: 39.7837304,
+            //     lng: -100.4458825
+            // },  
             center: { 
-                lat: 39.7837304,
-                lng: -100.4458825
+                lat: 0,
+                lng: 0
             },  
             locationMarkers: [],
             locPlaces: [],
