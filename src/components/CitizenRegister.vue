@@ -6,11 +6,11 @@
                     <div class="color-custom-default">Registro rápido</div>
                 </v-col>
             </v-row>
-            <v-row>
+            <!-- <v-row>
                 <v-col cols="12" class="d-flex text-h4 justify-start">
                     {{ center }}
                 </v-col>
-            </v-row>
+            </v-row> -->
             <!-- <v-row>
                 <v-col cols="12" class="text-h5 color-custom-default">
                     Fecha <v-icon class="pb-1" color="#47BCC2">mdi-calendar</v-icon>
@@ -20,7 +20,7 @@
                 <!-- <v-col cols="12" class="d-flex text-h5 justify-start" style="font-weight: 300;">
                     Registra el nido que estás viendo presionando el botón a continuación:
                 </v-col> -->
-                <v-col cols="12" class="d-flex text-h5 justify-start" style="font-weight: 300;">
+                <v-col cols="12" class="d-flex text-h5 justify-start" style="font-weight: 400;">
                     <div>Completa la siguiente información:</div>
                     <!-- <div>
                         <v-btn icon @click="getLocation()" class="ml-3 pb-3">
@@ -46,6 +46,9 @@
                             <v-text-field
                                 v-model="date"
                                 label="Fecha"
+                                dense
+                                placeholder="Ingrese la fecha del avistamiento del nido"
+                                persistent-placeholder
                                 prepend-inner-icon="mdi-calendar"
                                 readonly
                                 outlined
@@ -75,6 +78,9 @@
                             <v-text-field
                                 v-model="time"
                                 label="Hora"
+                                dense
+                                placeholder="Ingrese la hora del avistamiento del nido"
+                                persistent-placeholder
                                 prepend-inner-icon="mdi-clock-time-four-outline"
                                 outlined
                                 readonly
@@ -99,26 +105,6 @@
                     </div>
                 </v-col> -->
             </v-row>
-            <v-row>
-                <v-col md="6" sm="12" class="text-h4">
-                    <v-file-input
-                        v-model="showImg"
-                        accept="image/png, image/jpeg, image/bmp"
-                        placeholder="Selecciona una imagen"
-                        prepend-icon=""
-                        prepend-inner-icon="mdi-camera"
-                        label="Imagen del árbol"
-                        outlined
-                    />
-                </v-col>
-            </v-row>
-            <v-expand-transition>
-                <v-row v-if="showImg">
-                    <v-col>
-                        <v-img width="500" height="500" :src="imgUrlHandler()" />
-                    </v-col>
-                </v-row>
-            </v-expand-transition>
             <v-row v-if="false" class="mt-15">
                 <v-col cols="12" class="text-h5 color-custom-default">
                     Ubicación <v-icon class="pb-2" color="#47BCC2">mdi-map-marker-plus-outline</v-icon>
@@ -128,12 +114,17 @@
                 <!-- <v-col cols="12" class="d-flex text-h5 justify-start" style="font-weight: 300;">
                     Registra el nido que estás viendo presionando el botón a continuación:
                 </v-col> -->
-                <v-col cols="12" class="d-flex text-h5 justify-start" style="font-weight: 300;">
-                    <div>Registra la ubicación del nido que estás viendo, para mayor exactitud quédate lo más cerca del árbol y apreta el botón a continuación:</div>
+                <v-col cols="12" class="d-flex text-h5 justify-start" style="font-weight: 400;">
+                    <div>Registra la ubicación del nido:</div>
+                </v-col>
+                <v-col cols="12" class="d-flex text-h6 justify-start" style="font-weight: 300;">
+                    <div>Para mayor exactitud quédate lo más cerca del árbol y apreta el botón a continuación</div>
                 </v-col>
                 <v-col cols="12">
                     <div>
-                        <v-btn outlined dark @click="location2()" color="#47BCC2" class="ml-0">
+                        <!-- <v-btn outlined dark @click="location2()" color="#47BCC2" class="ml-0">
+                            Registrar -->
+                        <v-btn outlined dark @click="getLocation()" color="#47BCC2" class="ml-0">
                             Registrar
                             <v-icon class="ml-3" color="#47BCC2">mdi-map-marker-plus-outline</v-icon>
                         </v-btn>
@@ -208,6 +199,32 @@
                     </v-col>
                 </v-expand-transition>
             </v-row>
+            
+            <v-row>
+                <v-col cols="12" class="d-flex text-h6 justify-start" style="font-weight: 400;">
+                    <div>Añade una foto del nido: </div>
+                </v-col>
+                <v-col md="6" sm="12" class="text-h4">
+                    <v-file-input
+                        v-model="showImg"
+                        accept="image/png, image/jpeg, image/bmp"
+                        placeholder="Selecciona o toma una imagen"
+                        persistent-placeholder
+                        dense
+                        prepend-icon=""
+                        prepend-inner-icon="mdi-camera"
+                        label="Imagen del árbol"
+                        outlined
+                    />
+                </v-col>
+            </v-row>
+            <v-expand-transition>
+                <v-row v-if="showImg">
+                    <v-col style="border: 2px solid #47BCC2">
+                        <v-img width="500" height="500" :src="imgUrlHandler()" />
+                    </v-col>
+                </v-row>
+            </v-expand-transition>
             <v-row class="mt-10">
                 <v-col cols="12" class="text-h5 color-custom-default">
                     <v-btn color="secondary" outlined>cancelar</v-btn>
@@ -220,6 +237,18 @@
                 El nido fue registrado exitosamente! <v-icon x-large color="success">mdi-check</v-icon>
             </v-col>
         </v-row>
+        <v-layout row justify-center>
+            <v-dialog v-model="showError" persistent max-width="290">
+                <v-card>
+                    <v-card-title class="headline">Permitir ubicación</v-card-title>
+                    <v-card-text>Usted tiene bloqueados los permisos de ubicación, desbloquee el sitio o navegador en las configuraciones de su dispositivo para poder registrar las coordenadas del nido.</v-card-text>
+                    <v-card-actions class="pb-5">
+                        <v-spacer></v-spacer>
+                        <v-btn outlined color="#47BCC2" @click="showError = false">Cerrar</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+        </v-layout>
     </div>
 </template>
 
@@ -242,6 +271,7 @@ export default {
                 lat: 0,
                 lng: 0
             },  
+            showError: false,
             locationMarkers: [],
             locPlaces: [],
             existingPlace: null,
@@ -253,7 +283,8 @@ export default {
     mounted() { 
         // this.buttonAction = true
         this.startTime()
-        this.location2()
+        // this.location2()
+        this.getLocation()
 
     },
     methods: {
@@ -290,6 +321,35 @@ export default {
                 this.existingPlace = null;
             }
         },
+        // getLocation() {
+        //     console.log('esto es img: ', this.showImg)
+        //     const success = (position) => {
+        //         console.log('esto es position: ', position)
+        //         console.log('esto es BOTON: ', this.time)
+        //         this.center.lat = position.coords.latitude
+        //         this.center.lng = position.coords.longitude
+        //         // this.latitude  = position.coords.latitude;
+        //         // this.longitude = position.coords.longitude;
+        //         this.buttonAction = true
+
+        //         const marker = {
+        //             lat: this.center.lat,
+        //             lng: this.center.lng
+        //         };
+        //         this.locationMarkers.push({ position: marker });
+        //         this.locPlaces.push(this.existingPlace);
+        //         this.center = marker;
+        //         this.existingPlace = null;
+        //     };
+
+        //     const error = (err) => {
+        //         console.log(error, err)
+        //     };
+
+        //     // This will open permission popup
+        //     navigator.geolocation.getCurrentPosition(success, error);
+
+        // },
         getLocation() {
             console.log('esto es img: ', this.showImg)
             const success = (position) => {
@@ -313,6 +373,10 @@ export default {
 
             const error = (err) => {
                 console.log(error, err)
+                console.log('ESTE ES EL MALDITO ERROR: ', err);
+                if (err.code === 1) {
+                    this.showError = true
+                }
             };
 
             // This will open permission popup

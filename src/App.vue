@@ -5,7 +5,7 @@
       color="white"
       dark
       class="d-flex justify-start flex-row"
-      style="height: 90px;"
+      extended
     >
       <v-row>
         <v-col class="d-flex justify-start pb-0 mt-4 white" style="background-color: #47BCC2;" >
