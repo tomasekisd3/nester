@@ -219,7 +219,7 @@
                 </v-col>
             </v-row>
             <v-expand-transition>
-                <v-row v-if="showImg">
+                <v-row no-gutters v-if="showImg">
                     <v-col style="border: 2px solid #47BCC2">
                         <v-img width="500" height="500" :src="imgUrlHandler()" />
                     </v-col>
