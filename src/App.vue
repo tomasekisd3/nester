@@ -29,7 +29,8 @@
         src="../src/assets/logo1.png"
       /> -->
       <HelloWorld v-if="false"/>
-      <citizen-register />
+      <citizen-register v-if="!list" @register="routerAux($event)" />
+      <nests-list v-if="list" @register="routerAux($event)" />
     </v-main>
   </v-app>
 </template>
@@ -37,18 +38,29 @@
 <script>
 import HelloWorld from './components/HelloWorld';
 import CitizenRegister from './components/CitizenRegister';
+import NestsList from './components/NestsList.vue';
 
 export default {
   name: 'App',
 
   components: {
     HelloWorld,
-    CitizenRegister
+    CitizenRegister,
+    NestsList
   },
 
-  data: () => ({
-    //
-  }),
+  data() {
+    return {
+       list: true
+    }
+  },
+  methods: {
+    routerAux(ruta) {
+      if (ruta === 'list') this.list = true
+      else if (ruta === 'register') this.list = false
+      else if (ruta === 'cancel') this.list = false
+    },
+  },
 };
 </script>
 

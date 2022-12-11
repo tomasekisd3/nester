@@ -220,21 +220,24 @@
             </v-row>
             <v-expand-transition>
                 <v-row no-gutters v-if="showImg">
-                    <v-col style="border: 2px solid #47BCC2">
-                        <v-img width="500" height="500" :src="imgUrlHandler()" />
-                    </v-col>
+                    <div style="border: 2px solid #47BCC2; max-width: 500; max-height: 500; min-width: 300; min-height: 300;">
+                        <v-img min-width="300" min-height="300" max-width="500" max-height="500" :src="imgUrlHandler()" />
+                    </div>
                 </v-row>
             </v-expand-transition>
             <v-row class="mt-10">
                 <v-col cols="12" class="text-h5 color-custom-default">
-                    <v-btn color="secondary" elevation="0">cancelar</v-btn>
-                    <v-btn dark class="ml-5" color="#47BCC2" elevation="0" @click="sended = true">guardar</v-btn>
+                    <v-btn color="secondary" elevation="0" @click="cancelNest()">cancelar</v-btn>
+                    <v-btn dark class="ml-5" color="#47BCC2" elevation="0" @click="registerNest()">guardar</v-btn>
                 </v-col>
             </v-row>
         </v-card>
         <v-row v-if="sended" class="pa-10 mt-6 mx-2">
             <v-col cols="12" class="text-h4 secondary--text">
                 El nido fue registrado exitosamente! <v-icon x-large color="success">mdi-check</v-icon>
+            </v-col>
+            <v-col cols="12" class="text-h4 secondary--text">
+                <v-icon x-large color="#47BCC2">mdi-spin mdi-loading</v-icon>
             </v-col>
         </v-row>
         <v-layout row justify-center>
@@ -351,10 +354,7 @@ export default {
 
         // },
         getLocation() {
-            console.log('esto es img: ', this.showImg)
             const success = (position) => {
-                console.log('esto es position: ', position)
-                console.log('esto es BOTON: ', this.time)
                 this.center.lat = position.coords.latitude
                 this.center.lng = position.coords.longitude
                 // this.latitude  = position.coords.latitude;
@@ -373,7 +373,6 @@ export default {
 
             const error = (err) => {
                 console.log(error, err)
-                console.log('ESTE ES EL MALDITO ERROR: ', err);
                 if (err.code === 1) {
                     this.showError = true
                 }
@@ -410,6 +409,32 @@ export default {
         imgUrlHandler() {
             if (!this.showImg) return null
             else return URL.createObjectURL(this.showImg)
+        },
+        toList(action) {
+            this.$emit('register', action)
+        },
+        cancelNest() {
+            setTimeout(() => {
+                this.toList('list')
+                }, 100)
+            setTimeout(() => {
+                this.sended = false
+                }, 2500)
+            
+            
+            
+        },
+        registerNest() {
+            this.sended = true
+            setTimeout(() => {
+                this.toList('list')
+                }, 2500)
+            setTimeout(() => {
+                this.sended = false
+                }, 2500)
+            
+            
+            
         },
     },
 
