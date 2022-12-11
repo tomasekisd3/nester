@@ -4,24 +4,22 @@
       app
       color="white"
       dark
-      class="d-flex justify-start flex-row"
+      class="d-flex justify-start flex-wrap pt-4"
       extended
     >
-      <v-row>
-        <v-col class="d-flex justify-start pb-0 mt-4 white" style="background-color: #47BCC2;" >
-          <v-avatar color="white" size="82">
-            <img
-              style="width: 150px; height: 150px;"
-              src="../src/assets/logo1.png"
-            />
-          </v-avatar>
-          <!-- <p class="text-h4 mt-4">NESTER</p> -->
-        </v-col>
+      <v-col class="d-flex justify-start white" style="background-color: #47BCC2;" >
+        <v-avatar color="white" size="82">
+          <img
+            style="width: 150px; height: 150px;"
+            src="../src/assets/logo1.png"
+          />
+        </v-avatar>
+        <!-- <p class="text-h4 mt-4">NESTER</p> -->
+      </v-col>
 
-        <v-col class="text-h2 mt-7" style="font-weight: 500;">
-          <div style="color: #47BCC2;letter-spacing: 10px; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">NESTER</div>
-        </v-col>
-      </v-row>
+      <v-col class="text-h2" style="font-weight: 500;">
+        <div class="pt-7" style="color: #47BCC2;letter-spacing: 10px; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">NESTER</div>
+      </v-col>
 
       
     </v-app-bar>

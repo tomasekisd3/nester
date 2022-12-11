@@ -124,9 +124,9 @@
                     <div>
                         <!-- <v-btn outlined dark @click="location2()" color="#47BCC2" class="ml-0">
                             Registrar -->
-                        <v-btn outlined dark @click="getLocation()" color="#47BCC2" class="ml-0">
+                        <v-btn dark elevation="0" @click="getLocation()" color="#47BCC2" class="ml-0">
                             Registrar
-                            <v-icon class="ml-3" color="#47BCC2">mdi-map-marker-plus-outline</v-icon>
+                            <v-icon dark class="ml-3">mdi-map-marker-plus-outline</v-icon>
                         </v-btn>
                     </div>
                 </v-col>
@@ -200,7 +200,7 @@
                 </v-expand-transition>
             </v-row>
             
-            <v-row>
+            <v-row class="mt-5">
                 <v-col cols="12" class="d-flex text-h6 justify-start" style="font-weight: 400;">
                     <div>Añade una foto del nido: </div>
                 </v-col>
@@ -227,8 +227,8 @@
             </v-expand-transition>
             <v-row class="mt-10">
                 <v-col cols="12" class="text-h5 color-custom-default">
-                    <v-btn color="secondary" outlined>cancelar</v-btn>
-                    <v-btn class="ml-5" color="#47BCC2" outlined @click="sended = true">guardar</v-btn>
+                    <v-btn color="secondary" elevation="0">cancelar</v-btn>
+                    <v-btn dark class="ml-5" color="#47BCC2" elevation="0" @click="sended = true">guardar</v-btn>
                 </v-col>
             </v-row>
         </v-card>
@@ -244,7 +244,7 @@
                     <v-card-text>Usted tiene bloqueados los permisos de ubicación, desbloquee el sitio o navegador en las configuraciones de su dispositivo para poder registrar las coordenadas del nido.</v-card-text>
                     <v-card-actions class="pb-5">
                         <v-spacer></v-spacer>
-                        <v-btn outlined color="#47BCC2" @click="showError = false">Cerrar</v-btn>
+                        <v-btn dark color="#47BCC2" @click="showError = false">Cerrar</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-dialog>
